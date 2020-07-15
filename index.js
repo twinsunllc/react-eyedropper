@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -13,11 +13,13 @@ var _html2canvas = _interopRequireDefault(require("html2canvas"));
 
 var _getCanvasPixelColor2 = _interopRequireDefault(require("get-canvas-pixel-color"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -29,11 +31,11 @@ function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) ===
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -55,19 +57,22 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(EyeDropper)).call.apply(_getPrototypeOf2, [this].concat(args)));
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "eyeDropper", function (e) {
-      var initializedColor = _this.props.initializedColor;
+    _defineProperty(_assertThisInitialized(_this), "eyeDropper", function (e) {
+      var _this$props = _this.props,
+          initializedColor = _this$props.initializedColor,
+          canvasOptions = _this$props.canvasOptions;
 
       var removeEventListener = function removeEventListener() {
-        document.removeEventListener('click', _this.eyeDropper);
+        document.body.classList.remove("eye-dropper-open");
+        document.removeEventListener("click", _this.eyeDropper);
       };
 
-      (0, _html2canvas.default)(e.toElement, {
+      (0, _html2canvas["default"])(e.toElement, _objectSpread({}, canvasOptions, {
         onrendered: function onrendered(canvas) {
           var x = e.offsetX == undefined ? e.layerX : e.offsetX;
           var y = e.offsetY == undefined ? e.layerY : e.offsetY;
 
-          var _getCanvasPixelColor = (0, _getCanvasPixelColor2.default)(canvas, x, y),
+          var _getCanvasPixelColor = (0, _getCanvasPixelColor2["default"])(canvas, x, y),
               r = _getCanvasPixelColor.r,
               g = _getCanvasPixelColor.g,
               b = _getCanvasPixelColor.b,
@@ -84,14 +89,15 @@ function (_Component) {
           });
           removeEventListener();
         }
-      });
-      document.body.style.cursor = 'default';
+      }));
+      document.body.style.cursor = "default";
     });
 
-    _defineProperty(_assertThisInitialized(_assertThisInitialized(_this)), "initEyeDropper", function (event) {
+    _defineProperty(_assertThisInitialized(_this), "initEyeDropper", function () {
       _this.props.onInit && _this.props.onInit();
-      document.body.style.cursor = 'cell';
-      document.addEventListener('click', _this.eyeDropper);
+      document.body.style.cursor = "cell";
+      document.body.classList.add("eye-dropper-open");
+      document.addEventListener("click", _this.eyeDropper);
     });
 
     return _this;
@@ -100,12 +106,12 @@ function (_Component) {
   _createClass(EyeDropper, [{
     key: "render",
     value: function render() {
-      var _this$props = this.props,
-          className = _this$props.className,
-          title = _this$props.title;
+      var _this$props2 = this.props,
+          className = _this$props2.className,
+          title = _this$props2.title;
       var classNameComponent = className ? className : "eye dropper";
-      var titleComponent = title ? title : '+';
-      return _react.default.createElement("div", {
+      var titleComponent = title ? title : "+";
+      return _react["default"].createElement("div", {
         className: classNameComponent,
         onClick: this.initEyeDropper
       }, titleComponent);
@@ -116,11 +122,16 @@ function (_Component) {
 }(_react.Component);
 
 _defineProperty(EyeDropper, "propTypes", {
-  title: _propTypes.default.string,
-  className: _propTypes.default.string,
-  initializedColor: _propTypes.default.func.isRequired,
-  onInit: _propTypes.default.func
+  title: _propTypes["default"].string,
+  className: _propTypes["default"].string,
+  initializedColor: _propTypes["default"].func.isRequired,
+  onInit: _propTypes["default"].func,
+  canvasOptions: _propTypes["default"].object
+});
+
+_defineProperty(EyeDropper, "defaultProps", {
+  canvasOptions: {}
 });
 
 var _default = EyeDropper;
-exports.default = _default;
+exports["default"] = _default;
