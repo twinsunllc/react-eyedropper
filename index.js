@@ -95,7 +95,7 @@ function (_Component) {
 
     _defineProperty(_assertThisInitialized(_this), "initEyeDropper", function () {
       _this.props.onInit && _this.props.onInit();
-      document.body.style.cursor = "cell";
+      document.body.style.cursor = _this.props.cursor;
       document.body.classList.add("eye-dropper-open");
       document.addEventListener("click", _this.eyeDropper);
     });
@@ -126,11 +126,13 @@ _defineProperty(EyeDropper, "propTypes", {
   className: _propTypes["default"].string,
   initializedColor: _propTypes["default"].func.isRequired,
   onInit: _propTypes["default"].func,
-  canvasOptions: _propTypes["default"].object
+  canvasOptions: _propTypes["default"].object,
+  cursor: _propTypes["default"].string
 });
 
 _defineProperty(EyeDropper, "defaultProps", {
-  canvasOptions: {}
+  canvasOptions: {},
+  cursor: "cell"
 });
 
 var _default = EyeDropper;
