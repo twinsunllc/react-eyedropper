@@ -10,10 +10,12 @@ class EyeDropper extends Component {
     initializedColor: PropTypes.func.isRequired,
     onInit: PropTypes.func,
     canvasOptions: PropTypes.object,
+    cursor: PropTypes.string,
   };
 
   static defaultProps = {
     canvasOptions: {},
+    cursor: "cell",
   };
 
   eyeDropper = (e) => {
@@ -39,7 +41,7 @@ class EyeDropper extends Component {
 
   initEyeDropper = () => {
     this.props.onInit && this.props.onInit();
-    document.body.style.cursor = "cell";
+    document.body.style.cursor = this.props.cursor;
     document.body.classList.add("eye-dropper-open");
     document.addEventListener("click", this.eyeDropper);
   };
