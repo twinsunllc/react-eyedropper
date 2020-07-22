@@ -64,9 +64,13 @@ function (_Component) {
 
       var removeEventListener = function removeEventListener() {
         document.body.classList.remove("eye-dropper-open");
+        document.body.classList.remove("eye-dropper-working");
         document.removeEventListener("click", _this.eyeDropper);
+        document.body.style.cursor = "default";
       };
 
+      document.body.style.cursor = "progress";
+      document.body.classList.add("eye-dropper-working");
       (0, _html2canvas["default"])(e.toElement, _objectSpread({}, canvasOptions, {
         onrendered: function onrendered(canvas) {
           var x = e.offsetX == undefined ? e.layerX : e.offsetX;
@@ -90,7 +94,6 @@ function (_Component) {
           removeEventListener();
         }
       }));
-      document.body.style.cursor = "default";
     });
 
     _defineProperty(_assertThisInitialized(_this), "initEyeDropper", function () {

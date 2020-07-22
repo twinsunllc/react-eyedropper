@@ -22,8 +22,12 @@ class EyeDropper extends Component {
     const { initializedColor, canvasOptions } = this.props;
     const removeEventListener = () => {
       document.body.classList.remove("eye-dropper-open");
+      document.body.classList.remove("eye-dropper-working");
       document.removeEventListener("click", this.eyeDropper);
+      document.body.style.cursor = "default";
     };
+    document.body.style.cursor = "progress";
+    document.body.classList.add("eye-dropper-working");
     html2canvas(e.toElement, {
       ...canvasOptions,
       onrendered: function (canvas) {
@@ -36,7 +40,6 @@ class EyeDropper extends Component {
         removeEventListener();
       },
     });
-    document.body.style.cursor = "default";
   };
 
   initEyeDropper = () => {
